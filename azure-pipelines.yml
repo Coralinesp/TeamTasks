@@ -46,10 +46,4 @@ stages:
     - script: |
         npm install
         npm run build
-      displayName: Build React app
-
-    - task: PublishPipelineArtifact@1
-      displayName: Publish build artifact
-      inputs:
-        targetPath: '.next'
-        artifact: 'react-build'
+      displayName: Build React App
