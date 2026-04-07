@@ -80,7 +80,7 @@ export default function TeamTasks() {
         {/* Encabezado */}
         <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-8 md:p-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight">
-            📋 TeamTasks
+            📋 TeamTasksss
           </h1>
           <p className="text-lg md:text-xl opacity-95 font-light">
             Gestiona las tareas de tu equipo de forma simple y eficiente
