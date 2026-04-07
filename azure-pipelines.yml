@@ -26,6 +26,7 @@ stages:
         path: $(Pipeline.Workspace)/.npm
 
     - script: |
+        npm i
         npm config set cache $(Pipeline.Workspace)/.npm --global
         npm ci
       displayName: Install dependencies
@@ -55,6 +56,7 @@ stages:
         path: $(Pipeline.Workspace)/.npm
 
     - script: |
+        npm i
         npm config set cache $(Pipeline.Workspace)/.npm --global
         npm ci
         npm run build
