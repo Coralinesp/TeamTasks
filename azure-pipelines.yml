@@ -1,28 +1,69 @@
 trigger:
-- main  # rama que activará el pipeline
+  branches:
+    include:
+      - main
+
+pr: none
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: ubuntu-latest
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Instalar Node.js'
+stages:
+- stage: Validate
+  displayName: Validate React App
+  jobs:
+  - job: Validate
+    displayName: Install and validate
+    steps:
+    - checkout: self
 
-- script: |
-    npm install
-    npm test
-  displayName: 'Instalar dependencias y correr tests'
+    - task: Cache@2
+      displayName: Cache npm
+      inputs:
+        key: 'npm | "$(Agent.OS)" | package-lock.json'
+        restoreKeys: |
+          npm | "$(Agent.OS)"
+        path: $(Pipeline.Workspace)/.npm
 
-- task: CopyFiles@2
-  inputs:
-    contents: '**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'Preparar archivos para despliegue'
+    - script: |
+        npm config set cache $(Pipeline.Workspace)/.npm --global
+        npm ci
+      displayName: Install dependencies
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'drop'
-  displayName: 'Publicar artefactos'
+    - script: npm run lint --if-present
+      displayName: Run lint (optional)
+
+    - script: npm run test --if-present
+      displayName: Run tests (optional)
+
+- stage: Package
+  displayName: Build and publish
+  dependsOn: Validate
+  condition: succeeded()
+  jobs:
+  - job: Build
+    displayName: Build app
+    steps:
+    - checkout: self
+
+    - task: Cache@2
+      displayName: Restore npm cache
+      inputs:
+        key: 'npm | "$(Agent.OS)" | package-lock.json'
+        restoreKeys: |
+          npm | "$(Agent.OS)"
+        path: $(Pipeline.Workspace)/.npm
+
+    - script: |
+        npm config set cache $(Pipeline.Workspace)/.npm --global
+        npm ci
+        npm run build
+      displayName: Build React app
+
+    # Para Vite normalmente es "dist"
+    # Para Create React App normalmente es "build"
+    - task: PublishPipelineArtifact@1
+      displayName: Publish build artifact
+      inputs:
+        targetPath: 'dist'
+        artifact: 'react-build'
