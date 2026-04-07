@@ -8,6 +8,6 @@ steps:
 - script: |
     git clone https://github.com/Coralinesp/TeamTasks
     cd repo
-    git remote add azure https://dev.azure.com/ORG/PROYECT/_git/REPO
+    git remote add azure https://dev.azure.com/LoPasaHambre/LosPasaHambre/_git/LosPasaHambre
     git push azure main
   displayName: 'Sync repos'
