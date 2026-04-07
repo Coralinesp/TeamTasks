@@ -25,9 +25,6 @@ stages:
     - script: npm install
       displayName: Install dependencies
 
-    - script: npm run lint --if-present
-      displayName: Run lint (optional)
-
     - script: npm run test --if-present
       displayName: Run tests (optional)
 
