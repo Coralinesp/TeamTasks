@@ -1,0 +1,13 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    git clone https://github.com/usuario/repo.git
+    cd repo
+    git remote add azure https://dev.azure.com/ORG/PROYECT/_git/REPO
+    git push azure main
+  displayName: 'Sync repos'
