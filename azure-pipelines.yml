@@ -17,18 +17,12 @@ stages:
     steps:
     - checkout: self
 
-    - task: Cache@2
-      displayName: Cache npm
+    - task: UseNode@1
+      displayName: Use Node.js
       inputs:
-        key: 'npm | "$(Agent.OS)" | package-lock.json'
-        restoreKeys: |
-          npm | "$(Agent.OS)"
-        path: $(Pipeline.Workspace)/.npm
+        version: '20.x'
 
-    - script: |
-        npm i
-        npm config set cache $(Pipeline.Workspace)/.npm --global
-        npm ci
+    - script: npm install
       displayName: Install dependencies
 
     - script: npm run lint --if-present
@@ -47,23 +41,16 @@ stages:
     steps:
     - checkout: self
 
-    - task: Cache@2
-      displayName: Restore npm cache
+    - task: UseNode@1
+      displayName: Use Node.js
       inputs:
-        key: 'npm | "$(Agent.OS)" | package-lock.json'
-        restoreKeys: |
-          npm | "$(Agent.OS)"
-        path: $(Pipeline.Workspace)/.npm
+        version: '20.x'
 
     - script: |
-        npm i
-        npm config set cache $(Pipeline.Workspace)/.npm --global
-        npm ci
+        npm install
         npm run build
       displayName: Build React app
 
-    # Para Vite normalmente es "dist"
-    # Para Create React App normalmente es "build"
     - task: PublishPipelineArtifact@1
       displayName: Publish build artifact
       inputs:
