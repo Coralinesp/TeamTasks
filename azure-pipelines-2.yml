@@ -1,11 +1,13 @@
-steps:
-- checkout: none
+trigger:
+- main
 
+pool:
+  name: Default
+
+steps:
 - script: |
     git clone https://github.com/Coralinesp/TeamTasks
     cd TeamTasks
-    git config user.email "bot@example.com"
-    git config user.name "pipeline-bot"
-    git remote add azure https://dev.azure.com/LoPasaHambre/LosPasaHambre/_git/LosPasaHambre
-    git push https://$(AZURE_PAT)@dev.azure.com/LoPasaHambre/LosPasaHambre/_git/LosPasaHambre main
+    git remote add azure https://$(AZURE_PAT)@dev.azure.com/LoPasaHambre/LosPasaHambre/_git/LosPasaHambre
+    git push azure main
   displayName: 'Sync repos'
