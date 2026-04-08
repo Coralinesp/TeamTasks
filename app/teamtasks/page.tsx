@@ -75,10 +75,10 @@ export default function TeamTasks() {
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center p-5">
+    <main className="min-h-screen bg-linear-to-br from-purple-600 to-purple-800 flex items-center justify-center p-5">
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-slideIn">
         {/* Encabezado */}
-        <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-8 md:p-12 text-center">
+        <div className="bg-linear-to-r from-purple-600 to-purple-800 text-white p-8 md:p-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-3 tracking-tight">
             📋 TeamTasks
           </h1>
@@ -100,7 +100,7 @@ export default function TeamTasks() {
             />
             <button
               type="submit"
-              className="px-6 md:px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white font-bold rounded-lg hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all whitespace-nowrap"
+              className="px-6 md:px-8 py-3 bg-linear-to-r from-purple-600 to-purple-800 text-white font-bold rounded-lg hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all whitespace-nowrap"
             >
               Agregar Tarea
             </button>
