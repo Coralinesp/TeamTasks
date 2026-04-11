@@ -83,7 +83,7 @@ export default function TeamTasks() {
             📋 TeamTasks
           </h1>
           <p className="text-lg md:text-xl opacity-95 font-light">
-            Gestiona las tareas de tu equipo de forma simple y eficiente.
+            Gestiona las tareas de tu equipo de forma simple y eficientee.
           </p>
         </div>
 
